@@ -6,7 +6,7 @@ void debugPrinter(int[SIZE][SIZE]);
 
 int main(int argc, char **argv)
 {
-    if(argc=>1)
+    if(argc>=1)
     {   
             int mat[SIZE][SIZE];
 	        FILE *f;
