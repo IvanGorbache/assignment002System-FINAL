@@ -6,22 +6,31 @@
 #define max(A, B) ((A)>(B) ? (A) : (B))
 
 
-int knapSack(int [MAX_LEN], int[MAX_LEN]);
+int knapSack(int[MAX_LEN], int[MAX_LEN], int[MAX_LEN]);
+void fillResults(char[MAX_LEN], int[MAX_LEN], char[MAX_LEN]);
+void getInputs(char[MAX_LEN], int[MAX_LEN], int[MAX_LEN]);
+void printResults(int profit, char result[MAX_LEN]);
 
 int main()
 {
-	char items[MAX_LEN] = {'A','B','C','D','E'};
-	int values[MAX_LEN] = {35, 60, 100, 120, 130};
-	int weights[MAX_LEN] = {2, 5, 6, 9, 9};
-	printf("%d",knapSack(weights, values));
+	char items[MAX_LEN];
+	char result[MAX_LEN] = {0,0,0,0,0};
+	int values[MAX_LEN];
+	int weights[MAX_LEN];
+	int selected_bool[MAX_LEN] = {0,0,0,0,0};
+	int profit = 0;
+	getInputs(items, weights, values);
+	
+	profit = knapSack(weights, values, selected_bool);
+	fillResults(items, selected_bool, result);
+
+	printResults(profit,result);
 	return 0;
 }
 
-int knapSack(int weights[MAX_LEN], int values[MAX_LEN])
+int knapSack(int weights[MAX_LEN], int values[MAX_LEN], int selected_bool[MAX_LEN])
 {
-	char items[MAX_LEN] = {'A','B','C','D','E'};
-	int selected_bool = {0,0,0,0,0};
-	int profit = 0;
+
 	int table[MAX_LEN+1][MAX_WEIGHT+1];
 	
 	for(int i = 0;i<=MAX_LEN;i++)
@@ -47,14 +56,12 @@ int knapSack(int weights[MAX_LEN], int values[MAX_LEN])
 		}
 	}
 	
-	profit = table[MAX_LEN][MAX_WEIGHT];
-	
 	int j = MAX_WEIGHT;
 	for(int i = MAX_LEN; i >= 0; i--)
 	{
 		if(table[i][j] == table[i-1][j-weights[i-1]]+values[i-1])
 		{
-			printf("%c ",items[i-1]);
+			selected_bool[i-1] = 1;
 			j-=weights[i-1];
 		}
 	}	
@@ -62,4 +69,54 @@ int knapSack(int weights[MAX_LEN], int values[MAX_LEN])
 	return table[MAX_LEN][MAX_WEIGHT];
 }
 
+void fillResults(char items[MAX_LEN], int selected_bool[MAX_LEN], char result[MAX_LEN])
+{
+	int k = 0;
+	for(int i = 0; i < MAX_LEN; i++)
+	{
+		if(selected_bool[i])
+		{
+			result[k++] = items[i];
+		}
+	}
+}
+
+void getInputs(char items[MAX_LEN], int weights[MAX_LEN], int values[MAX_LEN])
+{
+	printf("\nPlease input values for %d item(s) (knapsack capacity: %d):",MAX_LEN,MAX_WEIGHT);
+	for(int i = 0; i < MAX_LEN; i++)
+	{
+		printf("\nEnter name for item number (%d):",i+1);
+		scanf(" %c",&items[i]);
+	}
+	for(int i = 0; i < MAX_LEN; i++)
+	{
+		printf("\nEnter value for item (%c):",items[i]);
+		scanf("%d",&values[i]);
+	}
+	for(int i = 0; i < MAX_LEN; i++)
+	{
+		printf("\nEnter weight for item (%c):",items[i]);
+		scanf("%d",&weights[i]);
+	}
+	printf("\nThank you! Happy trails!");
+}
+
+void printResults(int profit, char result[MAX_LEN])
+{
+	printf("\nMaximum profit: %d", profit);
+	printf("\nItems that give the maximum profit: [");
+	for(int i = MAX_LEN-1; i >= 0; i--)
+	{
+		if(result[i]!=0)
+		{
+			printf("%c",result[i]);
+			if(i-1>=0 && result[i-1]!=' ')
+			{
+				printf(", ");
+			}
+		}
+	}
+	printf("]\n");
+}
 
