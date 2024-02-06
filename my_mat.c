@@ -22,14 +22,7 @@ int shortestPath(int mat[SIZE][SIZE], int i, int j)
     {
         for(int j=0;j<SIZE;j++)
         {
-			if(mat[i][j] != 0)
-			{
-				dist[i][j] = mat[i][j];
-			}
-			else
-			{
-				dist[i][j] = INF;
-			}			
+			dist[i][j] = mat[i][j];			
         }
     }
 	for(int i=0;i<SIZE;i++)
@@ -42,9 +35,12 @@ int shortestPath(int mat[SIZE][SIZE], int i, int j)
 		{
 		    for(int j = 0;j < SIZE;j++)
 		    {
-                if(dist[i][j] > (dist[i][k] + dist[k][j]))
+				if(dist[i][k]!=0 && dist[k][j]!=0)
 				{
-					dist[i][j] = dist[i][k] + dist[k][j];
+					if((dist[i][j] > (dist[i][k] + dist[k][j])) || (i!=j && dist[i][j]==0))
+					{
+						dist[i][j] = dist[i][k] + dist[k][j];
+					}
 				}
 		    }
 		}
