@@ -1,17 +1,15 @@
 #include<stdio.h>
 #include "my_mat.h"
 void debugPrinter(int mat[SIZE][SIZE]);
-void inputMatrix(int mat[SIZE][SIZE], int input[INPUT_SIZE])
+void inputMatrix(int mat[SIZE][SIZE])
 {
-    int k = 0;
     for(int i=0;i<SIZE;i++)
     {
         for(int j=0;j<SIZE;j++)
         {
-            mat[i][j] = input[k++];
+            scanf("%d ", &mat[i][j]);
         }
     }
-    //debugPrinter(mat);
 }
 int pathExists(int mat[SIZE][SIZE], int i, int j)
 {
@@ -48,18 +46,6 @@ int shortestPath(int mat[SIZE][SIZE], int i, int j)
 		}
 	}
     return dist[i][j]!=0?dist[i][j]:-1;
-}
-void debugPrinter(int mat[SIZE][SIZE])
-{
-    printf("\n");
-	for(int i = 0;i < SIZE;i++)
-	{
-		for(int j = 0;j < SIZE;j++)
-		{
-			printf(" %d ", mat[i][j]);
-		}
-		printf("\n");
-	}
 }
 
 
