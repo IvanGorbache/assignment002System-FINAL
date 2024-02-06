@@ -1,6 +1,6 @@
 #include<stdio.h>
 #include "my_mat.h"
-void debugPrinter(int mat[SIZE][SIZE]);
+
 void inputMatrix(int mat[SIZE][SIZE])
 {
     for(int i=0;i<SIZE;i++)
@@ -45,7 +45,7 @@ int shortestPath(int mat[SIZE][SIZE], int i, int j)
 		    }
 		}
 	}
-    return dist[i][j]!=0 && dist[i][j]!=INF ? dist[i][j] : -1;
+    return dist[i][j]!=0 ? dist[i][j] : -1;
 }
 
 
