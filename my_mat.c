@@ -7,7 +7,7 @@ void inputMatrix(int mat[SIZE][SIZE])
     {
         for(int j=0;j<SIZE;j++)
         {
-            scanf("%d ", &mat[i][j]);
+            scanf("%d", &mat[i][j]);
         }
     }
 }
@@ -22,7 +22,14 @@ int shortestPath(int mat[SIZE][SIZE], int i, int j)
     {
         for(int j=0;j<SIZE;j++)
         {
-            dist[i][j] = mat[i][j];
+			if(mat[i][j] != 0)
+			{
+				dist[i][j] = mat[i][j];
+			}
+			else
+			{
+				dist[i][j] = INF;
+			}			
         }
     }
 	for(int i=0;i<SIZE;i++)
@@ -35,17 +42,14 @@ int shortestPath(int mat[SIZE][SIZE], int i, int j)
 		{
 		    for(int j = 0;j < SIZE;j++)
 		    {
-                if(dist[i][k]!=0  && dist[k][j]!=0)
-                {
-                    if((dist[i][j] > (dist[i][k] + dist[k][j])) || dist[i][j]==0)
-				    {
-					    dist[i][j] = dist[i][k] + dist[k][j];
-				    }
-                }
+                if(dist[i][j] > (dist[i][k] + dist[k][j]))
+				{
+					dist[i][j] = dist[i][k] + dist[k][j];
+				}
 		    }
 		}
 	}
-    return dist[i][j]!=0?dist[i][j]:-1;
+    return dist[i][j]!=0 && dist[i][j]!=INF ? dist[i][j] : -1;
 }
 
 
