@@ -77,7 +77,7 @@ void getInputs(char items[MAX_LEN], int weights[MAX_LEN], int values[MAX_LEN])
 void printResults(int profit, char items[MAX_LEN], int selected_bool[MAX_LEN])
 {
 	printf("Maximum profit: %d", profit);
-	printf("Selected items:");
+	printf("\nSelected items:");
 	for(int i = 0; i < MAX_LEN; i++)
 	{
 		if(selected_bool[i]==1)
