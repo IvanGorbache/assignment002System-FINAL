@@ -22,6 +22,11 @@ int main()
 	getInputs(items, weights, values);
 	
 	printResults(knapSack(weights, values, selected_bool),items,selected_bool);
+
+	for(int i = 0; i < MAX_LEN; i++)
+	{
+		free(items[i]);
+	}
 	return 0;
 }
 
