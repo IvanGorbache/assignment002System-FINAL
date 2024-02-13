@@ -1,19 +1,21 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 #define MAX_WEIGHT 20
+
 #define MAX_LEN 5
+
+#define STR_LEN 20
 
 #define max(A, B) ((A)>(B) ? (A) : (B))
 
-
 int knapSack(int[MAX_LEN], int[MAX_LEN], int[MAX_LEN]);
-
-void getInputs(char[MAX_LEN], int[MAX_LEN], int[MAX_LEN]);
-void printResults(int, char[MAX_LEN], int[MAX_LEN]);
+void getInputs(char*[MAX_LEN], int[MAX_LEN], int[MAX_LEN]);
+void printResults(int, char*[MAX_LEN], int[MAX_LEN]);
 
 int main()
 {
-	char items[MAX_LEN];
+	char* items[MAX_LEN];
 	int values[MAX_LEN];
 	int weights[MAX_LEN];
 	int selected_bool[MAX_LEN] = {0,0,0,0,0};
@@ -64,17 +66,18 @@ int knapSack(int weights[MAX_LEN], int values[MAX_LEN], int selected_bool[MAX_LE
 	return table[MAX_LEN][MAX_WEIGHT];
 }
 
-void getInputs(char items[MAX_LEN], int weights[MAX_LEN], int values[MAX_LEN])
+void getInputs(char* items[MAX_LEN], int weights[MAX_LEN], int values[MAX_LEN])
 {
 	for(int i = 0; i < MAX_LEN; i++)
 	{
-		scanf(" %c",&items[i]);
+		items[i] = malloc(STR_LEN * sizeof(char));
+		scanf("%20s",items[i]);
 		scanf("%d",&values[i]);
 		scanf("%d",&weights[i]);
 	}
 }
 
-void printResults(int profit, char items[MAX_LEN], int selected_bool[MAX_LEN])
+void printResults(int profit, char* items[MAX_LEN], int selected_bool[MAX_LEN])
 {
 	printf("Maximum profit: %d", profit);
 	printf("\nSelected items:");
@@ -82,7 +85,7 @@ void printResults(int profit, char items[MAX_LEN], int selected_bool[MAX_LEN])
 	{
 		if(selected_bool[i]==1)
 		{
-			printf(" %c",items[i]);
+			printf(" %s",items[i]);
 		}
 	}
 }
